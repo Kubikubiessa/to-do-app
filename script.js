@@ -4,26 +4,29 @@ window.addEventListener("load", () => {
   const list_element = document.querySelector("#tasks");
   let todos = [];
 
-  form.addEventListener("submit", createTodo);
-  function createTodo() {
-    const task = {
-      id: new Date().getTime(),
-        text: input.value
-      //text: "",
-    };
-    //task.text = input.value;
-    console.log(task);
-    if (!task) {
-      alert("Please enter a task!");
-      return;
-    }
-
-    todos.unshift(task);
-    const { task_el, list } = createTodoEl(task);
-    list_element.appendChild(task_el);
-    task_el.appendChild(list);
-    saveTodos();
-  }
+  form.addEventListener("submit", function(e) {
+    e.preventDefault()
+    //function createTodo() {
+        const task = {
+          id: new Date().getTime(),
+            text: input.value
+          //text: "",
+        };
+        //task.text = input.value;
+        console.log(task);
+        if (!task) {
+          alert("Please enter a task!");
+          return;
+        }
+    
+        todos.unshift(task);
+        const { task_el, list } = createTodoEl(task);
+        list_element.appendChild(task_el);
+        task_el.appendChild(list);
+        saveTodos();
+      //}
+  });
+  
   function createTodoEl(task) {
     const task_el = document.createElement("div");
     task_el.classList.add("task");
@@ -50,9 +53,9 @@ window.addEventListener("load", () => {
        saveTodos();
     });
 
-    return { task_el, list, task_action_el, task_delete_el };
+    return { task_el, list, listItem, task_action_el, task_delete_el };
   }
- 
+ //DISPLAY TODOS THAT ARE IN LOCALSTORAGE -- it's not working
   function displayTodos() {
     getTodos();
     console.log(todos);
@@ -77,5 +80,6 @@ window.addEventListener("load", () => {
     if (data) {
         todos = JSON.parse(data);
     }
+    console.log(data);
   }
 });
